@@ -1,0 +1,6 @@
+aws_region        = "us-east-1"
+project_name      = "iac-demo"
+environment       = "dev"
+bucket_name       = "iac-demo-storage-bucket-unique-suffix"
+instance_type     = "t2.micro"
+allowed_ssh_cidrs = ["0.0.0.0/0"]
