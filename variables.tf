@@ -29,7 +29,7 @@ variable "instance_type" {
 }
 
 variable "allowed_ssh_cidrs" {
-  description = "List of CIDR blocks allowed to SSH into the VM"
+  description = "List of CIDR blocks allowed to SSH into the VM. Set to your public IP, e.g. [\"203.0.113.5/32\"]."
   type        = list(string)
-  default     = ["0.0.0.0/0"]
+  default     = []
 }

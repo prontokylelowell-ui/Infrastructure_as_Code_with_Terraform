@@ -39,6 +39,15 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "app_storage_encry
   }
 }
 
+resource "aws_s3_bucket_public_access_block" "app_storage_public_access" {
+  bucket = aws_s3_bucket.app_storage.id
+
+  block_public_acls       = true
+  block_public_policy     = true
+  ignore_public_acls      = true
+  restrict_public_buckets = true
+}
+
 resource "aws_security_group" "vm_sg" {
   name        = "${var.project_name}-vm-sg"
   description = "Security group for ${var.project_name} VM"
@@ -117,6 +126,10 @@ resource "aws_instance" "app_vm" {
   vpc_security_group_ids = [aws_security_group.vm_sg.id]
 
   associate_public_ip_address = true
+
+  metadata_options {
+    http_tokens = "required"
+  }
 
   user_data = <<-EOF
               #!/bin/bash
